@@ -1,4 +1,4 @@
 class LanguageSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :language
+  attributes :language, :language_code
 end

@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 2020_04_10_185300) do
 
   create_table "languages", force: :cascade do |t|
     t.string "language"
+    t.string "language_code"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -41,19 +42,12 @@ ActiveRecord::Schema.define(version: 2020_04_10_185300) do
   create_table "translations", force: :cascade do |t|
     t.string "input"
     t.string "output"
-    t.bigint "user_language_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_language_id"], name: "index_translations_on_user_language_id"
-  end
-
-  create_table "user_languages", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "language_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["language_id"], name: "index_user_languages_on_language_id"
-    t.index ["user_id"], name: "index_user_languages_on_user_id"
+    t.index ["language_id"], name: "index_translations_on_language_id"
+    t.index ["user_id"], name: "index_translations_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -67,7 +61,6 @@ ActiveRecord::Schema.define(version: 2020_04_10_185300) do
   add_foreign_key "quiz_translations", "quizzes"
   add_foreign_key "quiz_translations", "translations"
   add_foreign_key "quizzes", "users"
-  add_foreign_key "translations", "user_languages"
-  add_foreign_key "user_languages", "languages"
-  add_foreign_key "user_languages", "users"
+  add_foreign_key "translations", "languages"
+  add_foreign_key "translations", "users"
 end
