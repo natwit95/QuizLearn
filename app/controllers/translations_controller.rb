@@ -3,6 +3,7 @@ class TranslationsController < ApplicationController
 
     def index
         translations = Translation.all
+        # languages = Language.all 
         render json: translations
     end
 
