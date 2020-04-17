@@ -32,8 +32,10 @@ class TranslationsController < ApplicationController
       end
 
     def destroy 
-        translation = Translation.find_by(params[:id])
+        translation = Translation.find(params[:id])
         translation.destroy 
+        translations = Translation.all 
+        render json: {status: 'deleted'} 
     end
 
 private
